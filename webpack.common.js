@@ -11,7 +11,8 @@ const glob = require("glob");
 module.exports={
 	entry:{
 		'uikit': glob.sync("./src/js/amc_ui_kit/*.js"),
-		'style': "./src/js/style.js"
+		'style': "./src/js/style.js",
+		'vendor': glob.sync("./src/js/vendor/**/*.js")
 	},
 	plugins:[
 		new ExtractTextPlugin({
@@ -30,7 +31,7 @@ module.exports={
 	    //   inlineManifest: false
 	    // }),
 	    new HtmlWebpackPlugin({
-	    	template: 'pug/index.html',
+	    	template: 'src/pug/index.pug',
 			// chunksSortMode: 'dependency'
 		}),
 	 //    new HtmlWebpackPlugin({
@@ -65,7 +66,8 @@ module.exports={
 		rules:[
 			{
 			    test: /\.pug$/,
-			    loaders: ['file-loader?name=[path][name].html', 'pug-html-loader?pretty&exports=false']
+			    // loaders: ['file-loader?name=[path][name].html', 'pug-html-loader?pretty&exports=false']
+			    loader: ['raw-loader', 'pug-html-loader']
 			},
 			{
 				test:/\.js$/,
